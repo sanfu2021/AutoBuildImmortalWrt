@@ -87,7 +87,8 @@ PACKAGES="$PACKAGES mkf2fs mtd"
 # --------------------------------------------
 # 6. 第三方插件（根据你的需要添加）
 # --------------------------------------------
-PACKAGES="$PACKAGES luci-app-lucky luci-app-bandix"   # 举例，可自行增减
+PACKAGES="$PACKAGES luci-app-lucky lucky"   # 举例，可自行增减
+PACKAGES="$PACKAGES luci-app-bandix bandix" 
 
 # --------------------------------------------
 # 注意：以下行已被注释，不再合并外部自定义包
@@ -96,7 +97,6 @@ PACKAGES="$PACKAGES luci-app-lucky luci-app-bandix"   # 举例，可自行增减
 # ======== shell/custom-packages.sh =======
 # 合并imm仓库以外的第三方插件
 # PACKAGES="$PACKAGES $CUSTOM_PACKAGES"
-
 
 # 判断是否需要编译 Docker 插件
 if [ "$INCLUDE_DOCKER" = "yes" ]; then
@@ -121,7 +121,9 @@ fi
 
 # 构建镜像
 echo "$(date '+%Y-%m-%d %H:%M:%S') - Building image with the following packages:"
-echo "$PACKAGES"
+echo "----------------------------------------"
+echo "Final PACKAGES: $PACKAGES"
+echo "----------------------------------------"
 
 make image PROFILE="generic" PACKAGES="$PACKAGES" FILES="/home/build/immortalwrt/files" ROOTFS_PARTSIZE=$PROFILE
 
