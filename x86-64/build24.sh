@@ -55,44 +55,30 @@ PACKAGES="$PACKAGES autocore automount base-files block-mount ca-bundle default-
 # --------------------------------------------
 # 2. Web 管理界面（LuCI）
 # --------------------------------------------
-# 基础界面及包管理器
 PACKAGES="$PACKAGES luci-app-package-manager luci-compat luci-lib-base luci-lib-ipkg luci-light"
-# 中文语言包（让界面显示完整中文）
 PACKAGES="$PACKAGES luci-i18n-base-zh-cn luci-i18n-firewall-zh-cn luci-i18n-package-manager-zh-cn"
 
 # --------------------------------------------
 # 3. 额外实用工具（按需保留）
 # --------------------------------------------
-# curl - 命令行下载工具（很多脚本依赖）
 PACKAGES="$PACKAGES curl"
-# argon 主题及配置（美观界面）
 PACKAGES="$PACKAGES luci-theme-argon luci-app-argon-config luci-i18n-argon-config-zh-cn"
-# ttyd - 网页终端（方便远程维护）
 PACKAGES="$PACKAGES luci-i18n-ttyd-zh-cn"
-# diskman - 磁盘管理工具（便于挂载、分区）
 PACKAGES="$PACKAGES luci-i18n-diskman-zh-cn"
-# filemanager - 文件管理器（方便管理硬盘文件）
 PACKAGES="$PACKAGES luci-i18n-filemanager-zh-cn"
 
 # --------------------------------------------
-# 4. iptables 兼容层（让依赖 iptables 命令的软件能运行）
+# 4. iptables 兼容层
 # --------------------------------------------
 PACKAGES="$PACKAGES iptables-nft ip6tables-nft iptables-mod-nat-extra"
 
 # --------------------------------------------
-# 5. 存储工具补充（diskman 依赖部分，保留无妨）
+# 5. 存储工具补充
 # --------------------------------------------
 PACKAGES="$PACKAGES mkf2fs mtd"
 
 # --------------------------------------------
-# 6. 第三方插件（根据你的需要添加）
-# --------------------------------------------
-PACKAGES="$PACKAGES luci-app-lucky lucky"   # 举例，可自行增减
-PACKAGES="$PACKAGES luci-app-bandix bandix" 
-
-# --------------------------------------------
 # 注意：以下行已被注释，不再合并外部自定义包
-# 如果你还需要从工作流传入额外包，可以取消注释
 # --------------------------------------------
 # ======== shell/custom-packages.sh =======
 # 合并imm仓库以外的第三方插件
