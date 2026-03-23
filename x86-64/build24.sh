@@ -46,25 +46,51 @@ echo "$(date '+%Y-%m-%d %H:%M:%S') - 开始构建固件..."
 # ============= imm仓库内的插件==============
 # 定义所需安装的包列表 下列插件你都可以自行删减
 PACKAGES=""
-PACKAGES="$PACKAGES curl"
-PACKAGES="$PACKAGES luci-i18n-diskman-zh-cn"
-PACKAGES="$PACKAGES luci-i18n-firewall-zh-cn"
-PACKAGES="$PACKAGES luci-theme-argon"
-PACKAGES="$PACKAGES luci-app-argon-config"
-PACKAGES="$PACKAGES luci-i18n-argon-config-zh-cn"
-#24.10
-PACKAGES="$PACKAGES luci-i18n-package-manager-zh-cn"
-PACKAGES="$PACKAGES luci-i18n-ttyd-zh-cn"
-PACKAGES="$PACKAGES xray-core hysteria luci-i18n-passwall-zh-cn"
-PACKAGES="$PACKAGES luci-app-openclash"
-PACKAGES="$PACKAGES luci-i18n-homeproxy-zh-cn"
-PACKAGES="$PACKAGES openssh-sftp-server"
 
-# 文件管理器
+# --------------------------------------------
+# 1. 核心系统（不可精简部分）
+# --------------------------------------------
+PACKAGES="$PACKAGES autocore automount base-files block-mount ca-bundle default-settings-chn dnsmasq-full fdisk firewall4 fstools grub2-bios-setup i915-firmware-dmc kmod-button-hotplug kmod-drm-i915 kmod-fs-f2fs kmod-fs-vfat kmod-igb kmod-igc kmod-nf-nathelper kmod-nf-nathelper-extra kmod-nft-offload kmod-usb-hid libc libgcc libustream-openssl logd netifd nftables odhcp6c odhcpd-ipv6only opkg partx-utils ppp ppp-mod-pppoe procd-ujail uci uclient-fetch urandom-seed urngd"
+
+# --------------------------------------------
+# 2. Web 管理界面（LuCI）
+# --------------------------------------------
+# 基础界面及包管理器
+PACKAGES="$PACKAGES luci-app-package-manager luci-compat luci-lib-base luci-lib-ipkg luci-light"
+# 中文语言包（让界面显示完整中文）
+PACKAGES="$PACKAGES luci-i18n-base-zh-cn luci-i18n-firewall-zh-cn luci-i18n-package-manager-zh-cn"
+
+# --------------------------------------------
+# 3. 额外实用工具（按需保留）
+# --------------------------------------------
+# curl - 命令行下载工具（很多脚本依赖）
+PACKAGES="$PACKAGES curl"
+# argon 主题及配置（美观界面）
+PACKAGES="$PACKAGES luci-theme-argon luci-app-argon-config luci-i18n-argon-config-zh-cn"
+# ttyd - 网页终端（方便远程维护）
+PACKAGES="$PACKAGES luci-i18n-ttyd-zh-cn"
+# diskman - 磁盘管理工具（便于挂载、分区）
+PACKAGES="$PACKAGES luci-i18n-diskman-zh-cn"
+# filemanager - 文件管理器（方便管理硬盘文件）
 PACKAGES="$PACKAGES luci-i18n-filemanager-zh-cn"
+
+# --------------------------------------------
+# 4. iptables 兼容层（让依赖 iptables 命令的软件能运行）
+# --------------------------------------------
+PACKAGES="$PACKAGES iptables-nft ip6tables-nft iptables-mod-nat-extra"
+
+# --------------------------------------------
+# 5. 存储工具补充（diskman 依赖部分，保留无妨）
+# --------------------------------------------
+PACKAGES="$PACKAGES mkf2fs mtd"
+
+# --------------------------------------------
+# 注意：以下行已被注释，不再合并外部自定义包
+# 如果你还需要从工作流传入额外包，可以取消注释
+# --------------------------------------------
 # ======== shell/custom-packages.sh =======
 # 合并imm仓库以外的第三方插件
-PACKAGES="$PACKAGES $CUSTOM_PACKAGES"
+# PACKAGES="$PACKAGES $CUSTOM_PACKAGES"
 
 
 # 判断是否需要编译 Docker 插件
