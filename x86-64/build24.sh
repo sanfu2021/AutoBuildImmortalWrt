@@ -80,7 +80,7 @@ PACKAGES="$PACKAGES mkf2fs mtd"
 # --------------------------------------------
 # 6. 第三方插件（根据你的需要添加）
 # --------------------------------------------
-PACKAGES="$PACKAGES luci-app-lucky luci-app-bandix"   # 举例，可自行增减
+PACKAGES="$PACKAGES luci-app-lucky luci-app-bandix luci-app-watchdog"   # 举例，可自行增减
 
 # --------------------------------------------
 # 注意：以下行已被注释，不再合并外部自定义包
